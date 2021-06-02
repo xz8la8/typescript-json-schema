@@ -67,6 +67,9 @@
         "booleanAnnotationWithFalse": {
             "hide": false,
             "type": "string"
+        },
+        "onlyDepType": {
+            "type": "number"
         }
     },
     "required": [
@@ -81,6 +84,7 @@
         "ipv6",
         "jsonPointer",
         "oneCharacter",
+        "onlyDepType",
         "regexPattern",
         "regexPatternWithWhitespace",
         "uri",

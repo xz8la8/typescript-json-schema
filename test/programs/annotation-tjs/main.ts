@@ -87,4 +87,9 @@ interface MyObject {
      * @TJS-ignore
      */
     complexWithRefIgnored: MyRef;
+
+    /**
+     * @TJS-type number
+     */
+    onlyDepType: MyRef;
 }

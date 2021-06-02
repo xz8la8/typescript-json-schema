@@ -1180,7 +1180,7 @@ export class JsonSchemaGenerator {
             const defs = {};
             const others = {};
             this.parseCommentsIntoDefinition(prop, defs, others);
-            if (defs.hasOwnProperty("ignore")) {
+            if (defs.hasOwnProperty("ignore") || defs.hasOwnProperty("type")) {
                 return defs;
             }
         }

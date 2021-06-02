@@ -4,10 +4,13 @@ import { exec, getDefaultArgs } from "../typescript-json-schema";
 describe("out option", () => {
     beforeEach(
         () =>
-            new Promise((resolve, reject) => {
-                require("fs").rm("./dist/test/doesnotexist", { recursive: true, force: true }, (err: Error) =>
-                    err ? reject(err) : resolve(null)
-                );
+            new Promise((resolve) => {
+                if (require("fs").existsSync("./dist/test/doesnotexist")) {
+                    require('rimraf').sync("./dist/test/doesnotexist");
+                    resolve(null);
+                } else {
+                  resolve(null);
+                }
             })
     );
     it("should create parent directory when necessary", async () => {
