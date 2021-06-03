@@ -69,6 +69,7 @@
             "type": "string"
         },
         "onlyDepType": {
+            "expression": "rule",
             "type": "number"
         }
     },

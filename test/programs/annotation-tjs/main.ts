@@ -90,6 +90,7 @@ interface MyObject {
 
     /**
      * @TJS-type number
+     * @TJS-expression rule
      */
     onlyDepType: MyRef;
 }

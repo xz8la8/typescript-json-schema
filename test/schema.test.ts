@@ -267,7 +267,8 @@ describe("schema", () => {
             skipCompile: true,
         });
         assertSchema("annotation-tjs", "MyObject", {
-            validationKeywords: ["hide"],
+            validationKeywords: ["hide", "expression"],
+            annotationKeywords: ["expression"]
         });
         assertSchema("annotation-id", "MyObject", {}, undefined, undefined);
         assertSchema("annotation-title", "MyObject");

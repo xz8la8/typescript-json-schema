@@ -49,6 +49,7 @@ export function getDefaultArgs(): Args {
         ignoreErrors: false,
         out: "",
         validationKeywords: [],
+        annotationKeywords: [],
         include: [],
         excludePrivate: false,
         uniqueNames: false,
@@ -60,6 +61,10 @@ export function getDefaultArgs(): Args {
 }
 
 export type ValidationKeywords = {
+    [prop: string]: boolean;
+};
+
+export type AnnotationKeywords = {
     [prop: string]: boolean;
 };
 
@@ -77,6 +82,7 @@ export type Args = {
     ignoreErrors: boolean;
     out: string;
     validationKeywords: string[];
+    annotationKeywords: string[];
     include: string[];
     excludePrivate: boolean;
     uniqueNames: boolean;
@@ -483,6 +489,11 @@ export class JsonSchemaGenerator {
     private userValidationKeywords: ValidationKeywords;
 
     /**
+     * This is a set of all the user-defined annotation keywords.
+     */
+    private userAnnotationKeywords: AnnotationKeywords;
+
+    /**
      * Types are assigned names which are looked up by their IDs.  This is the
      * map from type IDs to type names.
      */
@@ -507,6 +518,7 @@ export class JsonSchemaGenerator {
         this.inheritingTypes = inheritingTypes;
         this.tc = tc;
         this.userValidationKeywords = args.validationKeywords.reduce((acc, word) => ({ ...acc, [word]: true }), {});
+        this.userAnnotationKeywords = args.annotationKeywords.reduce((acc, word) => ({ ...acc, [word]: true }), {});
     }
 
     public get ReffedDefinitions(): { [key: string]: Definition } {
@@ -1354,7 +1366,7 @@ export class JsonSchemaGenerator {
             // If the type was recursive (there is reffedDefinitions) - lets replace it to reference
             if (this.reffedDefinitions[fullTypeName]) {
                 const annotations = Object.entries(returnedDefinition).reduce((acc, [key, value]) => {
-                    if (annotationKeywords[key] && typeof value !== undefined) {
+                    if ((annotationKeywords[key] || this.userAnnotationKeywords[key]) && typeof value !== undefined) {
                         acc[key] = value;
                     }
                     return acc;
