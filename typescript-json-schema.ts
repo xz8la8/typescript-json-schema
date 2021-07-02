@@ -4,6 +4,7 @@ import * as path from "path";
 import { createHash } from "crypto";
 import * as ts from "typescript";
 import { JSONSchema7 } from "json-schema";
+import * as yaml from 'yaml';
 export { Program, CompilerOptions, Symbol } from "typescript";
 
 const vm = require("vm");
@@ -551,6 +552,15 @@ export class JsonSchemaGenerator {
                         comment.kind === "lineBreak" ? comment.text : comment.text.trim().replace(/\r\n/g, "\n")
                     )
                     .join("");
+                // @ts-ignore
+                if(!symbol.parent) {
+                  const desc = definition.description;
+                  const parsedDesc = yaml.parse(desc);
+                  if(typeof parsedDesc !== 'string') {
+                    delete definition.description;
+                    Object.assign(definition, parsedDesc);
+                  }
+                }
             }
         }
 

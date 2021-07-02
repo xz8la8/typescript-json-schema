@@ -1,0 +1,24 @@
+{
+  "groups":[["age"]],
+  "aa":123,
+  "type": "object",
+  "required": [
+    "age"
+  ],
+  "properties": {
+    "age": {
+      "$ref": "#/definitions/HelloHelloHey",
+      "description": "年龄123"
+    }
+  },
+  "definitions": {
+    "HelloHelloHey": {
+      "enum": [
+        "Hello",
+        "Hey"
+      ],
+      "type": "string"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
