@@ -1,6 +1,6 @@
 {
   "name": "typescript-json-schema2",
-  "version": "0.50.1-2",
+  "version": "0.50.1-3",
   "description": "typescript-json-schema generates JSON Schema files from your Typescript sources",
   "main": "dist/typescript-json-schema.js",
   "typings": "dist/typescript-json-schema.d.ts",

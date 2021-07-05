@@ -552,8 +552,8 @@ export class JsonSchemaGenerator {
                         comment.kind === "lineBreak" ? comment.text : comment.text.trim().replace(/\r\n/g, "\n")
                     )
                     .join("");
-                // @ts-ignore
-                if(!symbol.parent) {
+                
+                if(symbol.getEscapedName() === fullNameStored) {
                   const desc = definition.description;
                   const parsedDesc = yaml.parse(desc);
                   if(typeof parsedDesc !== 'string') {
@@ -1611,6 +1611,7 @@ export function buildGenerator(
     }
 }
 
+let fullNameStored: string;
 export function generateSchema(
     program: ts.Program,
     fullTypeName: string,
@@ -1624,6 +1625,7 @@ export function generateSchema(
         return null;
     }
 
+    fullNameStored = fullTypeName;
     if (fullTypeName === "*") {
         // All types in file(s)
         return generator.getSchemaForSymbols(generator.getMainFileSymbols(program, onlyIncludeFiles));
