@@ -240,6 +240,10 @@ function parseValue(symbol: ts.Symbol, key: string, value: string): any {
         return resolveRequiredFile(symbol, key, fileName, objectName);
     }
     try {
+        // 扩展出来做 yaml
+        if(key === 'extension') {
+          return yaml.parse(value);
+        }
         return JSON.parse(value);
     } catch (error) {
         return value;
@@ -425,7 +429,9 @@ const validationKeywords = {
     $ref: true,
     id: true,
     $id: true,
-    title: true
+    title: true,
+    // TODO 扩展的，parseValue
+    extension: true,
 };
 
 /**
